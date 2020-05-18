@@ -11,7 +11,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import static ro.zenitech.probono.serviciisociale.security.SecurityConstants.*;
 
-
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
 
@@ -44,6 +43,11 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers(SIGN_UP_URL).hasRole("ADMIN")
                 .antMatchers("/api/v1/users").hasRole("ADMIN")
                 .antMatchers("/login").permitAll()
+                .antMatchers("/api/v1/cases").permitAll()
+                .antMatchers("/api/v1/organizations/**").permitAll()
+                .antMatchers("/api/v1/volunteers/**").permitAll()
+                .antMatchers("/api/v1/employees/**").permitAll()
+                .antMatchers("/api/v1/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
